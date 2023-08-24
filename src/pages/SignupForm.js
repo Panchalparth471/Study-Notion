@@ -6,6 +6,7 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 function SignupForm({setIsLoggedIn}) {
     const [showPassword, setshowPassword] = useState(false);
     const navigate = useNavigate();
+    const [accountType, setaccountType] = useState("Student");
   function changeHandler(event) {
       setformData ((prevData) => (
           {
@@ -14,10 +15,19 @@ function SignupForm({setIsLoggedIn}) {
           }
       )
       )
-          
-      
     }
 
+    function clickHandler() {
+        if (accountType === "Student") {
+            console.log('student');
+            setaccountType("Instructor");
+        }
+        else {
+            console.log('instructor');
+            setaccountType("Student");
+        }
+    }
+    
     const [formData, setformData] = useState({
          email: "", password: "" ,firstName:"",lastName:"",mode:"",confirmPassword:""
     });
@@ -40,11 +50,12 @@ function SignupForm({setIsLoggedIn}) {
 
     return (
         <div>
-              <div>
-                <button>
-                    Student
+              <div className="flex bg-richblack-800 w-[50%] h-12 rounded-3xl justify-between px-[12px] mt-5 items-center">
+
+                <button className={` text-center ${accountType==="Student"?("bg-richblack-900 transition-all duration-200") : ("bg-transparent")} rounded-3xl w-[50%] h-[80%]`} onClick={clickHandler} >
+                    Student 
                 </button>
-                <button>Instructor</button>
+                <button className={` text-center ${accountType==="Instructor"?("bg-richblack-900 transition-all duration-200") : ("bg-transparent")} rounded-3xl w-[50%] h-[80%]`} onClick={clickHandler}>Instructor</button>
             </div>
         
             <form onSubmit={submitHandler}>
